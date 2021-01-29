@@ -1,10 +1,14 @@
 import React from 'react'
+import {Route, BrowserRouter as Router} from 'react-router-dom'
+import { Home } from './pages/home/Home'
+import { BottomNavbar } from './components/molecules/bottom-navbar/BottomNavbar'
 
 function App() {
   return (
-    <div>
-      <h1>hello world</h1>
-    </div>
+    <Router>
+      <Route path='/' exact component={Home} />
+      <BottomNavbar />
+    </Router>
   );
 }
 
