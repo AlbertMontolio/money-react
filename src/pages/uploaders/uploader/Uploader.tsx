@@ -7,6 +7,7 @@ import { SubTitle } from '../../../brewery/sub-title/SubTitle'
 import { Page } from '../../../brewery/page/Page'
 import { Button } from '../../../brewery/button/Button'
 import { findUploaderLink } from '../uploaderLinks'
+import { urls } from '../../../config'
 
 interface ParamTypes {
   code: string
@@ -39,8 +40,23 @@ export const Uploader = () => {
     }
   }
 
-  const submitForm = () => {
-    console.log('clickinggg')
+  const submitForm = async () => {
+    console.log('### submitForm')
+    const url = `${urls.productionApi}/db_acc_transactions`
+
+    try {
+      const response = await fetch(url, {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({code, file})
+      })
+      const responseData = await response.json()
+      console.log('responseData', responseData)
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return (
