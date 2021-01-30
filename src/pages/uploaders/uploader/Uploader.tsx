@@ -8,6 +8,7 @@ import { Page } from '../../../brewery/page/Page'
 import { Button } from '../../../brewery/button/Button'
 import { findUploaderLink } from '../uploaderLinks'
 import { urls } from '../../../config'
+import { Files } from './files/Files'
 
 interface ParamTypes {
   code: string
@@ -28,7 +29,7 @@ const StyledButton = styled.div`
 
 export const Uploader = () => {
   const { code } = useParams<ParamTypes>()
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState('')
 
   console.log('### file', file)
 
@@ -36,21 +37,25 @@ export const Uploader = () => {
 
   const handleOnChange = (e: any) => {
     if (e) {
-      setFile(e.target.files)
+      e.persist()
+      setFile(e.target.files[0])
     }
   }
 
   const submitForm = async () => {
     console.log('### submitForm')
     const url = `${urls.productionApi}/db_acc_transactions`
+    const form = new FormData()
+    if (file) {
+      form.append("file", file)
+    }
 
     try {
       const response = await fetch(url, {
         method: 'post',
         headers: {
-          'Content-type': 'application/json'
         },
-        body: JSON.stringify({code, file})
+        body: form
       })
       const responseData = await response.json()
       console.log('responseData', responseData)
@@ -80,6 +85,7 @@ export const Uploader = () => {
           Upload
         </Button>
       </StyledButton>
+      <Files />
     </Page>
   )
 }
