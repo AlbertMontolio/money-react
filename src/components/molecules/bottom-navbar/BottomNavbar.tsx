@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd'
+import BarChartIcon from '@material-ui/icons/BarChart';
 import { NavLink } from 'react-router-dom'
 
 const PositionWrapper = styled.div`
@@ -15,7 +17,8 @@ const StyledBottomNavbar = styled.div`
   display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgb(250,250,250);
+	background-color: rgb(245,245,245);
+	border-top: 1px solid rgb(240,240,240);
 `
 
 const StyledNavLink = styled(NavLink)`
@@ -27,10 +30,10 @@ export const BottomNavbar = () => {
 		<PositionWrapper>
 			<StyledBottomNavbar>
 				<StyledNavLink to='/'>
-					sth
+					<BarChartIcon />
 				</StyledNavLink>
-				<StyledNavLink to='/'>
-					add
+				<StyledNavLink to='/uploaders'>
+					<PlaylistAddIcon />
 				</StyledNavLink>
 			</StyledBottomNavbar>
 		</PositionWrapper>
