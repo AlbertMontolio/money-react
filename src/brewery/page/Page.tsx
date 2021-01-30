@@ -2,8 +2,7 @@ import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
 
 const StyledPage = styled.div`
-  padding: 10px;
-  margin: 30px 0px;
+  padding: 30px 10px;
   background-color: #F1F3F5;
 `
 

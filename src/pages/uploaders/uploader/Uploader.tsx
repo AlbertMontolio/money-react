@@ -6,13 +6,12 @@ import { Title } from '../../../brewery/title/Title'
 import { SubTitle } from '../../../brewery/sub-title/SubTitle'
 import { Page } from '../../../brewery/page/Page'
 import { Button } from '../../../brewery/button/Button'
+import { StyledLink } from '../../../brewery/styled-link/StyledLink'
 import { findUploaderLink } from '../uploaderLinks'
 import { urls } from '../../../config'
 import { Files } from './files/Files'
+import { UrlParamTypes } from '../../../types/common'
 
-interface ParamTypes {
-  code: string
-}
 
 interface FileProps {
   success: boolean
@@ -20,7 +19,6 @@ interface FileProps {
 }
 
 const StyledForm = styled.div`
-
 `
 
 const StyledButton = styled.div`
@@ -28,7 +26,7 @@ const StyledButton = styled.div`
 `
 
 export const Uploader = () => {
-  const { code } = useParams<ParamTypes>()
+  const { code } = useParams<UrlParamTypes>()
   const [file, setFile] = useState('')
 
   console.log('### file', file)
@@ -67,7 +65,7 @@ export const Uploader = () => {
   return (
     <Page>
       <Title>
-        Uploader
+        {`Uploader ${code}`}
       </Title>
       <SubTitle>
         {uploaderLink?.name}
