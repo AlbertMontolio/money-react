@@ -19,20 +19,16 @@ const Year = styled.div`
   font-weight: bold;
 `
 
-type DataProps = {
-  year: any
-}
-
 export const Reports = () => {
-  const [data2020, setData2020] = useState([])
-  const [data2019, setData2019] = useState([])
-  const [data2018, setData2018] = useState([])
-  const [data2017, setData2017] = useState([])
-  const [data2016, setData2016] = useState([])
-  const [data2015, setData2015] = useState([])
-  const [data2014, setData2014] = useState([])
-  const [data2013, setData2013] = useState([])
-  const [data2012, setData2012] = useState([])
+  const [data2020, setData2020] = useState<any>([])
+  const [data2019, setData2019] = useState<any>([])
+  const [data2018, setData2018] = useState<any>([])
+  const [data2017, setData2017] = useState<any>([])
+  const [data2016, setData2016] = useState<any>([])
+  const [data2015, setData2015] = useState<any>([])
+  const [data2014, setData2014] = useState<any>([])
+  const [data2013, setData2013] = useState<any>([])
+  const [data2012, setData2012] = useState<any>([])
   const { code } = useParams<UrlParamTypes>()
 
   console.log('### data2020', data2020)
@@ -101,6 +97,19 @@ export const Reports = () => {
     fetchData(2012)
   }, [])
 
+  const increment2020 = data2020[data2020.length - 1]?.aggregated
+  const increment2019 = data2019[data2019.length - 1]?.aggregated
+  const increment2018 = data2018[data2018.length - 1]?.aggregated
+  const increment2017 = data2017[data2017.length - 1]?.aggregated
+  const increment2016 = data2016[data2016.length - 1]?.aggregated
+  const increment2015 = data2015[data2015.length - 1]?.aggregated
+  const increment2014 = data2014[data2014.length - 1]?.aggregated
+  const increment2013 = data2013[data2013.length - 1]?.aggregated
+  const increment2012 = data2012[data2012.length - 1]?.aggregated
+
+  console.log('### increment2020', increment2020)
+  console.log('### increment2019', increment2019)
+
   return (
     <Page>
       <Title>
@@ -109,39 +118,39 @@ export const Reports = () => {
       <>
         <ChartWrapper>
           <Year>
-            2020
+            {`2020: ${increment2020}`}
           </Year>
           <Chart data={data2020} />
           <Year>
-            2019
+            {`2019: ${increment2019}`}
           </Year>
           <Chart data={data2019} />
           <Year>
-            2018
+            {`2018: ${increment2018}`}
           </Year>
           <Chart data={data2018} />
           <Year>
-            2017
+            {`2017: ${increment2017}`}
           </Year>
           <Chart data={data2017} />
           <Year>
-            2016
+            {`2016: ${increment2016}`}
           </Year>
           <Chart data={data2016} />
           <Year>
-            2015
+            {`2015: ${increment2015}`}
           </Year>
           <Chart data={data2015} />
           <Year>
-            2014
+            {`2014: ${increment2014}`}
           </Year>
           <Chart data={data2014} />
           <Year>
-            2013
+            {`2013: ${increment2013}`}
           </Year>
           <Chart data={data2013} />
           <Year>
-            2012
+            {`2012: ${increment2012}`}
           </Year>
           <Chart data={data2012} />
         </ChartWrapper>
