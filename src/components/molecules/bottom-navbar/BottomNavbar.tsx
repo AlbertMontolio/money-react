@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd'
-import BarChartIcon from '@material-ui/icons/BarChart';
+import BarChartIcon from '@material-ui/icons/BarChart'
+import ListIcon from '@material-ui/icons/List'
 import { NavLink } from 'react-router-dom'
 
 const PositionWrapper = styled.div`
@@ -22,7 +23,7 @@ const StyledBottomNavbar = styled.div`
 `
 
 const StyledNavLink = styled(NavLink)`
-	margin: 0px 10px;
+	margin: 0px 20px;
 `
 
 export const BottomNavbar = () => {
@@ -32,8 +33,8 @@ export const BottomNavbar = () => {
 				<StyledNavLink to='/'>
 					<BarChartIcon />
 				</StyledNavLink>
-				<StyledNavLink to='/uploaders'>
-					<PlaylistAddIcon />
+				<StyledNavLink to='/accounts'>
+					<ListIcon />
 				</StyledNavLink>
 			</StyledBottomNavbar>
 		</PositionWrapper>
