@@ -5,7 +5,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import { NavLink } from 'react-router-dom'
 
 const PositionWrapper = styled.div`
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	width: 100%;
