@@ -1,3 +1,4 @@
 export interface UrlParamTypes {
-  code: string
+  code?: string | undefined
+  year?: string | undefined
 }

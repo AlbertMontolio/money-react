@@ -33,7 +33,7 @@ export const Account = () => {
         {`Account ${code}`}
       </Title>
       <Links>
-        <StyledLink to={`/reports/${code}`}>
+        <StyledLink to={`/${code}/reports/years`}>
           Reports
         </StyledLink>
         <StyledLink to={`/transactions/${code}`}>

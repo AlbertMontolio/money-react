@@ -49,4 +49,4 @@ export const uploaderLinks = [
 	},
 ]
 
-export const findUploaderLink = (code: string) => uploaderLinks.find((uploaderLink) => uploaderLink.code === code )
+export const findUploaderLink = (code: string | undefined) => uploaderLinks.find((uploaderLink) => uploaderLink.code === code )

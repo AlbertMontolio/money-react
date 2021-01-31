@@ -12,12 +12,6 @@ import { urls } from '../../../config'
 import { Files } from './files/Files'
 import { UrlParamTypes } from '../../../types/common'
 
-
-interface FileProps {
-  success: boolean
-  message: string
-}
-
 const StyledForm = styled.div`
 `
 

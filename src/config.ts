@@ -5,6 +5,8 @@ export const urls = {
 
 export const colors = {
   green: '#2eec96',
+  red: 'red',
+  blue: 'blue',
   yellow: '#FCF5E8',
   black: '#231c42'
 }

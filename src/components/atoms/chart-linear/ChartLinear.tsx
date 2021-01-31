@@ -7,7 +7,7 @@ type ChartProps = {
   data: any
 }
 
-export const Chart: FunctionComponent<ChartProps> = ({data}) => {
+export const ChartLinear: FunctionComponent<ChartProps> = ({data}) => {
   return (
     <div>
       <LineChart

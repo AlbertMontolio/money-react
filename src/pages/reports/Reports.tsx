@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
+import { NavLink } from 'react-router-dom'
 
 import { Title } from '../../brewery/title/Title'
 import { Page } from '../../brewery/page/Page'
 import { urls } from '../../config'
 import { UrlParamTypes } from '../../types/common'
-import { Chart } from './Chart'
+import { ChartLinear } from '../../components/atoms/chart-linear/ChartLinear'
 
 const ChartWrapper = styled.div`
   margin-bottom: 40px;
+  background-color: white;
+  padding: 10px 0px
 `
 
 const Year = styled.div`
   font-weight: bold;
+`
+
+const StyledReports = styled.div`
+  background-color: #F1F3F5; 
+`
+
+const Button = styled(NavLink)`
+  background-color: rgb(230,230,230);
+  padding: 5px 10px;
+  border-radius: 100px;
 `
 
 export const Reports = () => {
@@ -35,7 +45,7 @@ export const Reports = () => {
 
   const fetchData = async (year: number) => {
     console.log('### year', year)
-    const url = `${urls.productionApi}/db_acc_transactions/chart_data?year=${year}`
+    const url = `${urls.productionApi}/db_acc_transactions/year_data?year=${year}`
 
     try {
       const response = await fetch(url, {
@@ -111,7 +121,7 @@ export const Reports = () => {
   console.log('### increment2019', increment2019)
 
   return (
-    <Page>
+    <StyledReports>
       <Title>
         {`Reports ${code}`}
       </Title>
@@ -120,41 +130,66 @@ export const Reports = () => {
           <Year>
             {`2020: ${increment2020}`}
           </Year>
-          <Chart data={data2020} />
+          <ChartLinear data={data2020} />
+          <Button to={`/${code}/reports/years/2020`}>
+            Monthly report
+          </Button>
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2019: ${increment2019}`}
           </Year>
-          <Chart data={data2019} />
+          <ChartLinear data={data2019} />
+          <Button to={`/${code}/reports/years/2019`}>
+            Monthly report
+          </Button>
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2018: ${increment2018}`}
           </Year>
-          <Chart data={data2018} />
+          <ChartLinear data={data2018} />
+          <Button to={`/${code}/reports/years/2018`}>
+            Monthly report
+          </Button>
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2017: ${increment2017}`}
           </Year>
-          <Chart data={data2017} />
+          <ChartLinear data={data2017} />
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2016: ${increment2016}`}
           </Year>
-          <Chart data={data2016} />
+          <ChartLinear data={data2016} />
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2015: ${increment2015}`}
           </Year>
-          <Chart data={data2015} />
+          <ChartLinear data={data2015} />
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2014: ${increment2014}`}
           </Year>
-          <Chart data={data2014} />
+          <ChartLinear data={data2014} />
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2013: ${increment2013}`}
           </Year>
-          <Chart data={data2013} />
+          <ChartLinear data={data2013} />
+        </ChartWrapper>
+        <ChartWrapper>
           <Year>
             {`2012: ${increment2012}`}
           </Year>
-          <Chart data={data2012} />
+          <ChartLinear data={data2012} />
         </ChartWrapper>
       </>
-    </Page>
+    </StyledReports>
   )
 }
