@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const StyledPage = styled.div`
   padding: 30px 10px;
+  padding-bottom: 80px;
   background-color: #F1F3F5;
 `
 
