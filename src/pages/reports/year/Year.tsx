@@ -5,49 +5,54 @@ import { useParams } from 'react-router-dom'
 
 import { Title } from '../../../brewery/title/Title'
 import { Page } from '../../../brewery/page/Page'
+import { StyledLink } from '../../../brewery/styled-link/StyledLink'
 import { urls } from '../../../config'
 import { UrlParamTypes } from '../../../types/common'
 import { YearDataProvider, useYearData } from '../../../providers/year-data-provider/YearDataProvider'
+import { MonthsDataProvider, useMonthsData } from '../../../providers/months-data-provider/MonthsDataProvider'
 import { ChartLinear } from '../../../components/atoms/chart-linear/ChartLinear'
 import { ChartBar } from '../../../components/atoms/chart-bar/ChartBar'
+import { months } from '../../../_common/months'
+
+const ChartWrapper = styled.div`
+  padding: 20px 10px;
+  background-color: white;
+  margin-bottom: 10px;
+`
+
+const Buttons = styled.div`
+  margin-top: 30px;
+`
+
+const ButtonWrapper = styled.div`
+  margin-bottom: 10px;
+`
 
 export const YearWithData = () => {
   const {code, year} = useParams<UrlParamTypes>()
   const {yearData} = useYearData()
-  const [monthsData, setMonthsData] = useState([])
-
-  const fetchData = async () => {
-    console.log('### year', year)
-    const url = `${urls.productionApi}/db_acc_transactions/months_data?year=${year}`
-
-    try {
-      const response = await fetch(url, {
-        method: 'get',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const responseData = await response.json()
-      setMonthsData(responseData)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  console.log('yearData', yearData)
-  console.log('monthsData', monthsData)
+  const {monthsData} = useMonthsData()
 
   return (
     <Page>
       <Title>
         {`Report Year ${year} - ${code}`}
       </Title>
-      <ChartLinear data={yearData} />
-      <ChartBar data={monthsData} />
+      <ChartWrapper>
+        <ChartLinear data={yearData} />
+      </ChartWrapper>
+      <ChartWrapper>
+        <ChartBar data={monthsData} />
+      </ChartWrapper>
+      <Buttons>
+        {months.map((month, index) => (
+          <ButtonWrapper>
+            <StyledLink to={`/${code}/reports/years/${year}/months/${index + 1}`}>
+              {`${month} - ${year}`}
+            </StyledLink>
+          </ButtonWrapper>
+        ))}
+      </Buttons>
     </Page>
   )
 }
@@ -57,7 +62,9 @@ export const Year = () => {
 
   return (
     <YearDataProvider year={year}>
-      <YearWithData />
+      <MonthsDataProvider year={year}>
+        <YearWithData />
+      </MonthsDataProvider>
     </YearDataProvider>
   )
 }

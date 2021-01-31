@@ -8,6 +8,7 @@ import { Account } from './pages/account/Account'
 import { Transactions } from './pages/transactions/Transactions'
 import { Reports } from './pages/reports/Reports'
 import { Year } from './pages/reports/year/Year'
+import { Month } from './pages/reports/month/Month'
 
 import { BottomNavbar } from './components/molecules/bottom-navbar/BottomNavbar'
 
@@ -22,6 +23,7 @@ function App() {
       <Route path='/transactions/:code' exact component={Transactions} />
       <Route path='/:code/reports/years' exact component={Reports} />
       <Route path='/:code/reports/years/:year' exact component={Year} />
+      <Route path='/:code/reports/years/:year/months/:month' exact component={Month} />
       <BottomNavbar />
     </Router>
   );
