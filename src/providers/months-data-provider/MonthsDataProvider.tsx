@@ -34,6 +34,7 @@ export const MonthsDataProvider: FunctionComponent<MonthsDataProviderProps> = ({
         }
       })
       const responseData = await response.json()
+      console.log('### MonthsDataProvider responseData', responseData)
       setMonthsData(responseData)
     } catch (error) {
       console.log('error', error)

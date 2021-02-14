@@ -1,30 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NavLink, useParams } from 'react-router-dom'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { useParams } from 'react-router-dom'
 
-import { 
-  MonthsDataProvider, 
-  useMonthsData 
-} from '../../../providers/months-data-provider/MonthsDataProvider'
 import { 
   MonthTransactionsProvider, 
   useMonthTransactions 
 } from '../../../providers/month-transactions-provider/MonthTransactionsProvider'
 import { UrlParamTypes } from '../../../types/common'
-import { ChartBar } from '../../../components/atoms/chart-bar/ChartBar'
 import { TransactionItem } from '../../../components/molecules/transaction-item/TransactionItem'
 import { Title } from '../../../brewery/title/Title'
 import { SubTitle } from '../../../brewery/sub-title/SubTitle'
 import { Page } from '../../../brewery/page/Page'
-
-const ChartWrapper = styled.div`
-  padding: 20px 10px;
-  background-color: white;
-  margin-bottom: 10px;
-  overflow: scroll;
-`
+import { YearMonthMenu } from './year-month-menu/YearMonthMenu'
+import { Charts } from './charts/Charts'
 
 const Transactinons = styled.div`
   margin-top: 20px;
@@ -34,61 +22,9 @@ const TitleWrapper = styled.div`
   margin-top: 40px;
 `
 
-const Menus = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-`
-
-const Menu = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const MonthsMenu = styled(Menu)`
-`
-
-const Arrow = styled.a`
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const MonthWrapper = styled.div`
-  width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const ChartsMenu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 20px;
-  overflow: scroll;
-`
-
-const ChartButton = styled.div`
-  border-radius: 200px;
-  border: 1px solid rgb(180,180,180);
-  background-color: rgb(230,230,230);
-  padding: 5px 10px;
-  margin-right: 20px;
-  flex-shrink: 0;
-`
-
 export const MonthWithData = () => {
   const {year, month, code} = useParams<UrlParamTypes>()
-  const {monthsData} = useMonthsData()
   const {monthTransactions} = useMonthTransactions()
-
-  console.log('### monthTransactions', monthTransactions)
 
   let numYear = year
   let numMonth = month
@@ -98,47 +34,17 @@ export const MonthWithData = () => {
       <SubTitle>
         account: {code}
       </SubTitle>
-      <Menus>
-        <Menu>
-          <Arrow href={`/${code}/reports/years/${+numYear - 1}/months/${month}`}>
-            <ArrowBackIosIcon />
-          </Arrow>
-          <div>
-            {year}
-          </div>
-          <Arrow href={`/${code}/reports/years/${+numYear + 1}/months/${month}`}>
-            <ArrowForwardIosIcon />
-          </Arrow>
-        </Menu>
-        <MonthsMenu>
-          <Arrow href={`/${code}/reports/years/${numYear}/months/${+numMonth - 1}`}>
-            <ArrowBackIosIcon />
-          </Arrow>
-          <MonthWrapper>
-            {month}
-          </MonthWrapper>
-          <Arrow href={`/${code}/reports/years/${numYear}/months/${+numMonth + 1}`}>
-            <ArrowForwardIosIcon />
-          </Arrow>
-        </MonthsMenu>
-      </Menus>
+      <YearMonthMenu
+        code={code}
+        numYear={numYear}
+        month={month}
+        year={year}
+        numMonth={numMonth}
+      />
       <Title>
         {`Month ${month} - ${year}`}
       </Title>
-      <ChartsMenu>
-        <ChartButton>
-          soll-haben-balance
-        </ChartButton>
-        <ChartButton>
-          balance-aggregated
-        </ChartButton>
-        <ChartButton>
-          soll-aggregated
-        </ChartButton>
-      </ChartsMenu>
-      <ChartWrapper>
-        <ChartBar data={monthsData} />
-      </ChartWrapper>
+      <Charts year={year} />
       <TitleWrapper>
         <Title>
           Transactions
@@ -155,10 +61,8 @@ export const Month = () => {
   const {year, month} = useParams<UrlParamTypes>()
 
   return (
-    <MonthsDataProvider year={year}>
-      <MonthTransactionsProvider year={year} month={month}>
-        <MonthWithData />
-      </MonthTransactionsProvider>
-    </MonthsDataProvider>
+    <MonthTransactionsProvider year={year} month={month}>
+      <MonthWithData />
+    </MonthTransactionsProvider>
   )
 }
