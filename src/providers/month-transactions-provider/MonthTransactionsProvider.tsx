@@ -26,7 +26,9 @@ export const MonthTransactionsProvider: FunctionComponent<MonthTransactionsProvi
 
   const fetchData = async () => {
     console.log('### year', year)
+    console.log('### month', month)
     const url = `${urls.productionApi}/db_acc_transactions?year=${year}&month=${month}`
+    console.log('### url', url)
 
     try {
       const response = await fetch(url, {
@@ -36,6 +38,7 @@ export const MonthTransactionsProvider: FunctionComponent<MonthTransactionsProvi
         }
       })
       const responseData = await response.json()
+      console.log('### responseData', responseData)
       setMonthTransactions(responseData)
     } catch (error) {
       console.log('error', error)

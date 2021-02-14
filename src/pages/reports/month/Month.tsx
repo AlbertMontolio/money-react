@@ -66,6 +66,23 @@ const MonthWrapper = styled.div`
   align-items: center;
 `
 
+const ChartsMenu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  overflow: scroll;
+`
+
+const ChartButton = styled.div`
+  border-radius: 200px;
+  border: 1px solid rgb(180,180,180);
+  background-color: rgb(230,230,230);
+  padding: 5px 10px;
+  margin-right: 20px;
+  flex-shrink: 0;
+`
+
 export const MonthWithData = () => {
   const {year, month, code} = useParams<UrlParamTypes>()
   const {monthsData} = useMonthsData()
@@ -108,6 +125,17 @@ export const MonthWithData = () => {
       <Title>
         {`Month ${month} - ${year}`}
       </Title>
+      <ChartsMenu>
+        <ChartButton>
+          soll-haben-balance
+        </ChartButton>
+        <ChartButton>
+          balance-aggregated
+        </ChartButton>
+        <ChartButton>
+          soll-aggregated
+        </ChartButton>
+      </ChartsMenu>
       <ChartWrapper>
         <ChartBar data={monthsData} />
       </ChartWrapper>
