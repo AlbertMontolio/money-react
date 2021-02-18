@@ -11,6 +11,7 @@ import { findUploaderLink } from '../uploaderLinks'
 import { urls } from '../../../config'
 import { Files } from './files/Files'
 import { UrlParamTypes } from '../../../types/common'
+import { Gant } from '../../../components/organisms/gant/Gant'
 
 const StyledForm = styled.div`
 `
@@ -19,11 +20,13 @@ const StyledButton = styled.div`
   margin-top: 20px;
 `
 
+const StyledGant = styled.div`
+  margin-top: 40px;
+`
+
 export const Uploader = () => {
   const { code } = useParams<UrlParamTypes>()
   const [file, setFile] = useState('')
-
-  console.log('### file', file)
 
   const uploaderLink = findUploaderLink(code)
 
@@ -35,7 +38,6 @@ export const Uploader = () => {
   }
 
   const submitForm = async () => {
-    console.log('### submitForm')
     const url = `${urls.productionApi}/db_acc_transactions`
     const form = new FormData()
     if (file) {
@@ -77,6 +79,9 @@ export const Uploader = () => {
           Upload
         </Button>
       </StyledButton>
+      <StyledGant>
+        <Gant />
+      </StyledGant>
       <Files />
     </Page>
   )
