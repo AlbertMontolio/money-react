@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import LogoInvestment from '../../images/home/logo_investment.png'
+import LogoInvestmentImg from '../../images/home/logo_investment.png'
+import RealStateImg from '../../images/home/real_state.jpg'
+import BigDataImg from '../../images/home/big_data.jpg'
+import CodingImg from '../../images/home/coding.png'
 
 import { SignInForm } from '../../components/organisms/sign-in-form/SignInForm'
 
@@ -33,7 +36,10 @@ export const Home = () => {
 			<StyledSubtitle>
 				We bring algorithms to real state
 			</StyledSubtitle>
-			<StyledImage src={LogoInvestment} />
+			<StyledImage src={LogoInvestmentImg} />
+			<StyledImage src={RealStateImg} />
+			<StyledImage src={BigDataImg} />
+			<StyledImage src={CodingImg} />
 			<SignInForm />
 		</SyledHome>
 	)
