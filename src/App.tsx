@@ -9,24 +9,25 @@ import { Transactions } from './pages/transactions/Transactions'
 import { Reports } from './pages/reports/Reports'
 import { Year } from './pages/reports/year/Year'
 import { Month } from './pages/reports/month/Month'
+import { AuthenticateProvider } from './providers/authenticate-provider/AuthenticateProvider'
+import { AuthorizeProvider } from './providers/authorize-provider/AuthorizeProvider'
+import { UserProvider } from './providers/user-provider/UserProvider'
 
-import { BottomNavbar } from './components/molecules/bottom-navbar/BottomNavbar'
+import { BottomNavbarFrame } from './routes/BottomNavbarFrame'
 
 function App() {
   return (
     <Router>
-      <Route path='/' exact component={Home} />
-      <Route path='/uploaders' exact component={Uploaders} />
-      <Route path='/uploaders/:code' exact component={Uploader} />
-      <Route path='/accounts/:code' exact component={Account} />
-      <Route path='/accounts' exact component={Accounts} />
-      <Route path='/transactions/:code' exact component={Transactions} />
-      <Route path='/:code/reports/years' exact component={Reports} />
-      <Route path='/:code/reports/years/:year' exact component={Year} />
-      <Route path='/:code/reports/years/:year/months/:month' exact component={Month} />
-      <BottomNavbar />
+      <UserProvider>
+        <AuthorizeProvider>
+          <AuthenticateProvider>
+            <Route path='/' exact component={Home} />
+            <Route path='/real-state' component={BottomNavbarFrame} /> 
+          </AuthenticateProvider>
+        </AuthorizeProvider>
+      </UserProvider>
     </Router>
-  );
+  )
 }
 
 export default App

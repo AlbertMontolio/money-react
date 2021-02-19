@@ -4,6 +4,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd'
 import BarChartIcon from '@material-ui/icons/BarChart'
 import ListIcon from '@material-ui/icons/List'
 import { NavLink } from 'react-router-dom'
+import HomeIcon from '@material-ui/icons/Home'
 
 const PositionWrapper = styled.div`
 	position: fixed;
@@ -31,7 +32,7 @@ export const BottomNavbar = () => {
 		<PositionWrapper>
 			<StyledBottomNavbar>
 				<StyledNavLink to='/'>
-					<BarChartIcon />
+					<HomeIcon />
 				</StyledNavLink>
 				<StyledNavLink to='/accounts'>
 					<ListIcon />

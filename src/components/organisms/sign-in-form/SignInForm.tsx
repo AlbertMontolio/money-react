@@ -30,6 +30,10 @@ export const SignInForm = () => {
   const { authorize, setAuthorize } = useAuthorize()
   const { setUser, user } = useUser()
 
+  console.log('### authenticate', authenticate)
+  console.log('### authorize', authorize)
+  console.log('### user', user)
+
   console.log('### email', email)
   console.log('### password', password)
 
@@ -54,10 +58,19 @@ export const SignInForm = () => {
   
         if (json.authorization_token) {
           // @ts-ignore
-          setAuthenticate({...authenticate, authenticateToken: response.accessToken})
+          setAuthenticate({
+            // @ts-ignore
+            ...authenticate, 
+            authenticateToken: response.accessToken
+          })
     
           // @ts-ignore
-          setAuthorize({...authorize, authorizeToken: json.authorization_token, backendUserId: json.backend_user_id})
+          setAuthorize({
+            // @ts-ignore
+            ...authorize, 
+            authorizeToken: json.authorization_token, 
+            backendUserId: json.backend_user_id
+          })
     
           // @ts-ignore
           setUser({

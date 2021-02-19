@@ -20,6 +20,7 @@ const localState = JSON.parse(localStorage.getItem('authenticate'))
 
 export const AuthenticateProvider: FunctionComponent = ({children}) => {
   const [authenticate, setAuthenticate] = useState(localState || initialState)
+  console.log('### authenticate', authenticate)
 
   useEffect(() => {
     localStorage.setItem('authenticate', JSON.stringify(authenticate))
