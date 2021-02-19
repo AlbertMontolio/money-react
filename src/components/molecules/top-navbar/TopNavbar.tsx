@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import Origami from '../../../images/home/origami.png'
+
 import  RightNavbar from '../right-navbar/RightNavbar'
 
 const PositionWrapper = styled.div`
@@ -8,6 +10,20 @@ const PositionWrapper = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
+`
+
+const StyledLogo = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const StyledImg = styled.img`
+  width: 25px;
+`
+
+const Text = styled.div`
+  font-weight: bold;
+  margin-left: 5px;
 `
 
 const StyledTopNavbar = styled.div`
@@ -26,7 +42,12 @@ export const TopNavbar = () => {
   return (
     <PositionWrapper>
       <StyledTopNavbar>
-        Olgari
+        <StyledLogo>
+          <StyledImg src={Origami} />
+          <Text>
+            Olgari
+          </Text>
+        </StyledLogo>
         <RightNavbar />
       </StyledTopNavbar>
     </PositionWrapper>
