@@ -39,7 +39,7 @@ export const Reports = () => {
   const [data2014, setData2014] = useState<any>([])
   const [data2013, setData2013] = useState<any>([])
   const [data2012, setData2012] = useState<any>([])
-  const { code } = useParams<UrlParamTypes>()
+  const { id } = useParams<UrlParamTypes>()
 
   console.log('### data2020', data2020)
 

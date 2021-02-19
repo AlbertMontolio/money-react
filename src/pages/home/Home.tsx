@@ -5,8 +5,6 @@ import RealStateImg from '../../images/home/real_state.jpg'
 import BigDataImg from '../../images/home/big_data.jpg'
 import CodingImg from '../../images/home/coding.png'
 
-import { SignInForm } from '../../components/organisms/sign-in-form/SignInForm'
-
 // 	https://git.heroku.com/immense-hollows-05384.git (fetch)
 
 const SyledHome = styled.div`
@@ -28,6 +26,7 @@ const StyledImage = styled.img`
 
 
 export const Home = () => {
+	console.log('### Home')
 	return (
 		<SyledHome>
 			<StyledTitle>
@@ -40,7 +39,6 @@ export const Home = () => {
 			<StyledImage src={RealStateImg} />
 			<StyledImage src={BigDataImg} />
 			<StyledImage src={CodingImg} />
-			<SignInForm />
 		</SyledHome>
 	)
 }

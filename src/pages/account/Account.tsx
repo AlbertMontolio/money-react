@@ -21,25 +21,23 @@ const StyledLink = styled(NavLink)`
 `
 
 interface ParamTypes {
-  code: string
+  id: string
 }
 
 export const Account = () => {
-  const { code } = useParams<ParamTypes>()
+  console.log('### account')
+  const { id } = useParams<ParamTypes>()
 
   return (
     <Page>
       <Title>
-        {`Account ${code}`}
+        {`Account ${id}`}
       </Title>
       <Links>
-        <StyledLink to={`/${code}/reports/years`}>
+        <StyledLink to={`/${id}/reports/years`}>
           Reports
         </StyledLink>
-        <StyledLink to={`/transactions/${code}`}>
-          Transactions
-        </StyledLink>
-        <StyledLink to={`/uploaders/${code}`}>
+        <StyledLink to={`/real-state/accounts/${id}/files`}>
           Upload file
         </StyledLink>
       </Links>

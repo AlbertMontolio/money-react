@@ -13,14 +13,14 @@ const Name = styled.div`
 `
 
 type AccountLinkProps = {
-	dataAccount: any
+	userAccount: any
 }
 
-export const AccountLink: FunctionComponent<AccountLinkProps> = ({ dataAccount }) => {
+export const AccountLink: FunctionComponent<AccountLinkProps> = ({ userAccount }) => {
 	return (
-		<StyledUploaderLink to={`/accounts/${dataAccount.code}`}>
+		<StyledUploaderLink to={`/real-state/accounts/${userAccount.id}`}>
 				<Name>
-					{dataAccount.name}
+					{userAccount.name}
 				</Name>
 		</StyledUploaderLink>
 	)

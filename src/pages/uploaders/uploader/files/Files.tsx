@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FunctionComponent } from 'react'
 import styled from 'styled-components'
 import { Title } from '../../../../brewery/title/Title'
 import { urls } from '../../../../config'
+import { useAuthorize } from '../../../../providers/authorize-provider/AuthorizeProvider'
 
 const StyledFiles = styled.div`
   margin-top: 30px;
@@ -21,19 +22,25 @@ const Dates = styled.div`
   margin-top: 5px;
 `
 
-export const Files = () => {
+type FilesProps = {
+  accountId: any
+}
+
+export const Files: FunctionComponent<FilesProps> = ({accountId}) => {
   const [files, setFiles] = useState([])
+  const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
 
   useEffect(() => {
     const fetchFiles = async () => {
       console.log('### submitForm')
-      const url = `${urls.productionApi}/db_acc_files`
+      const url = `${urls.productionApi}/accounts/${accountId}/user_files`
   
       try {
         const response = await fetch(url, {
           method: 'get',
           headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': authorizeToken
           }
         })
         const responseData = await response.json()

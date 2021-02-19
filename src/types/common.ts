@@ -1,5 +1,6 @@
 export interface UrlParamTypes {
-  code?: string | undefined
+  id?: string | undefined
   year?: string | undefined | any
   month?: string | undefined | any
+  propertyId?: string | undefined
 }

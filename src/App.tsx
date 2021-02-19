@@ -10,6 +10,7 @@ import { Transactions } from './pages/transactions/Transactions'
 import { Reports } from './pages/reports/Reports'
 import { Year } from './pages/reports/year/Year'
 import { Month } from './pages/reports/month/Month'
+import { SignInForm } from './pages/sign-in-form/SignInForm'
 import { TopNavbar } from './components/molecules/top-navbar/TopNavbar'
 import { AuthenticateProvider } from './providers/authenticate-provider/AuthenticateProvider'
 import { AuthorizeProvider } from './providers/authorize-provider/AuthorizeProvider'
@@ -22,6 +23,7 @@ const StyledPage = styled.div`
 `
 
 function App() {
+  console.log('### App')
   return (
     <Router>
       <UserProvider>
@@ -31,6 +33,7 @@ function App() {
             <StyledPage>
               <Route path='/' exact component={Home} />
               <Route path='/real-state' component={BottomNavbarFrame} /> 
+              <Route path='/log-in' component={SignInForm} /> 
             </StyledPage>
           </AuthenticateProvider>
         </AuthorizeProvider>

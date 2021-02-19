@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FunctionComponent } from 'react'
 import styled from 'styled-components'
 
-import { urls } from '../../../config'
-import { useAuthenticate } from '../../../providers/authenticate-provider/AuthenticateProvider'
-import { useAuthorize } from '../../../providers/authorize-provider/AuthorizeProvider'
-import { useUser } from '../../../providers/user-provider/UserProvider'
-import { Button } from '../../../brewery/button/Button'
+import { urls } from '../../config'
+import { useAuthenticate } from '../../providers/authenticate-provider/AuthenticateProvider'
+import { useAuthorize } from '../../providers/authorize-provider/AuthorizeProvider'
+import { useUser } from '../../providers/user-provider/UserProvider'
+import { Button } from '../../brewery/button/Button'
 
 const Inputs = styled.div`
   display: flex;
@@ -23,19 +23,21 @@ const Label = styled.div`
   margin-bottom: 5px;
 `
 
-export const SignInForm = () => {
+const StyledPage = styled.div`
+  padding: 20px; 
+`
+
+type SignInFormProps = {
+  history: any
+}
+
+export const SignInForm: FunctionComponent<SignInFormProps> = ({history}) => {
+  console.log('### SignInForm')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { authenticate, setAuthenticate } = useAuthenticate()
   const { authorize, setAuthorize } = useAuthorize()
   const { setUser, user } = useUser()
-
-  console.log('### authenticate', authenticate)
-  console.log('### authorize', authorize)
-  console.log('### user', user)
-
-  console.log('### email', email)
-  console.log('### password', password)
 
   const handleOnSubmit = () => {
     const signInBackend = async () => {
@@ -82,7 +84,7 @@ export const SignInForm = () => {
           })
   
           // @ts-ignore
-          // history.push('/')
+          history.push(`/real-state/users/${json.backend_user_id}/accounts`)
         } else {
           console.log('something went wrong')
         }
@@ -94,7 +96,7 @@ export const SignInForm = () => {
   }
 
   return (
-    <div>
+    <StyledPage>
       <Inputs>
         <Label>
           email
@@ -108,6 +110,6 @@ export const SignInForm = () => {
       <Button onClick={() => handleOnSubmit()}>
         LOG IN
       </Button>
-    </div>
+    </StyledPage>
   )
 }

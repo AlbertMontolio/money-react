@@ -11,6 +11,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
+import { useAuthorize, authorizeInitialState } from '../../../providers/authorize-provider/AuthorizeProvider'
 
 const useStyles = makeStyles({
   list: {
@@ -21,9 +24,19 @@ const useStyles = makeStyles({
   },
 });
 
+const StyledNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  width: 200px;
+  padding: 5px 10px;
+`
+
 export default function RightNavbar() {
   const classes = useStyles();
   const [state, setState] = React.useState(false)
+  // @ts-ignore
+  const { authorize: { authorizeToken, backendUserId }, setAuthorize } = useAuthorize()
+  console.log('### authorizeToken', authorizeToken)
 
   const toggleDrawer = (open: any) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -33,6 +46,12 @@ export default function RightNavbar() {
     setState(open);
   };
 
+  const handleLogOutClick = () => {
+    // @ts-ignore
+    setAuthorize(authorizeInitialState)
+    localStorage.clear()
+  }
+
   const list = () => (
     <div
       role="presentation"
@@ -40,12 +59,33 @@ export default function RightNavbar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button key='log-in'>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary={'log in'} />
-        </ListItem>
+        {authorizeToken && (
+          <>
+            <StyledNavLink to={`/real-state/users/${backendUserId}/accounts`}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'mis cuentas'} />
+            </StyledNavLink>
+            <StyledNavLink to={`/real-state/users/${backendUserId}/properties`}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'mis propiedades'} />
+            </StyledNavLink>
+            <div onClick={() => handleLogOutClick()}>
+              log out
+            </div> 
+          </>
+        )}
+        {!authorizeToken && (
+          <StyledNavLink to='/log-in'>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={'log in'} />
+          </StyledNavLink>
+        )}
       </List>
       <Divider />
     </div>

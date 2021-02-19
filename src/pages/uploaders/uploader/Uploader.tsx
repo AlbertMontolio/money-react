@@ -11,10 +11,10 @@ import { findUploaderLink } from '../uploaderLinks'
 import { urls } from '../../../config'
 import { Files } from './files/Files'
 import { UrlParamTypes } from '../../../types/common'
-import { Gant } from '../../../components/organisms/gant/Gant'
+import { Calendar } from '../../../components/organisms/calendar/Calendar'
+import { useAuthorize } from '../../../providers/authorize-provider/AuthorizeProvider'
 
-const StyledForm = styled.div`
-`
+const StyledForm = styled.div``
 
 const StyledButton = styled.div`
   margin-top: 20px;
@@ -25,10 +25,11 @@ const StyledGant = styled.div`
 `
 
 export const Uploader = () => {
-  const { code } = useParams<UrlParamTypes>()
+  const { id } = useParams<UrlParamTypes>()
   const [file, setFile] = useState('')
+  const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
 
-  const uploaderLink = findUploaderLink(code)
+  const uploaderLink = findUploaderLink(id)
 
   const handleOnChange = (e: any) => {
     if (e) {
@@ -47,7 +48,9 @@ export const Uploader = () => {
     try {
       const response = await fetch(url, {
         method: 'post',
-        headers: {
+        headers: { 
+          'Content-type': 'application/json',
+          'Authorization': authorizeToken
         },
         body: form
       })
@@ -61,7 +64,7 @@ export const Uploader = () => {
   return (
     <Page>
       <Title>
-        {`Uploader ${code}`}
+        {`Uploader ${id}`}
       </Title>
       <SubTitle>
         {uploaderLink?.name}
@@ -80,9 +83,9 @@ export const Uploader = () => {
         </Button>
       </StyledButton>
       <StyledGant>
-        <Gant />
+        <Calendar initYear={2012} endYear={2021} />
       </StyledGant>
-      <Files />
+      <Files accountId={id} />
     </Page>
   )
 }

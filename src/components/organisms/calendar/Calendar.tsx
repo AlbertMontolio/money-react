@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
 
 import { YearLine } from './YearLine'
@@ -52,8 +52,17 @@ const Month = styled.div`
   margin-bottom: 5px;
 `
 
-export const Gant = () => {
-  const years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021]
+type CalendarProps = {
+  initYear: number
+  endYear: number
+}
+
+export const Calendar: FunctionComponent<CalendarProps> = ({initYear, endYear}) => {
+  // const years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+  const years = [];
+  for (var i = initYear; i <= endYear; i++) {
+    years.push(i);
+  }
 
   const months = [
     {name: 'january', width: 793},

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 import Origami from '../../../images/home/origami.png'
 
@@ -12,7 +13,7 @@ const PositionWrapper = styled.div`
 	width: 100%;
 `
 
-const StyledLogo = styled.div`
+const StyledLogo = styled(NavLink)`
   display: flex;
   align-items: center;
 `
@@ -42,7 +43,7 @@ export const TopNavbar = () => {
   return (
     <PositionWrapper>
       <StyledTopNavbar>
-        <StyledLogo>
+        <StyledLogo to='/'>
           <StyledImg src={Origami} />
           <Text>
             Olgari

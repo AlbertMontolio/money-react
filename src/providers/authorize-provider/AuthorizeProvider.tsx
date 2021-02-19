@@ -6,19 +6,19 @@ import React, {
   FunctionComponent
 } from 'react'
 
-const AuthorizeContext = createContext('')
-// @ts-ignore
-const SetAuthorizeContext = createContext()
-
-export const initialState = {
+export const authorizeInitialState = {
   authorizeToken: '',
   backendUserId: ''
 }
+const AuthorizeContext = createContext(authorizeInitialState)
+// @ts-ignore
+const SetAuthorizeContext = createContext()
+
 // @ts-ignore
 const localState = JSON.parse(localStorage.getItem('authorize'))
 
 export const AuthorizeProvider: FunctionComponent = ({children}) => {
-  const [authorize, setAuthorize] = useState(localState || initialState)
+  const [authorize, setAuthorize] = useState(localState || authorizeInitialState)
 
   useEffect(() => {
     localStorage.setItem('authorize', JSON.stringify(authorize))

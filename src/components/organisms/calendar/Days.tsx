@@ -18,7 +18,6 @@ const Day = styled.div`
 
 export const Days = ({monthDaysTotal, index}: {monthDaysTotal: any, index: any}) => {
   const days = [...Array(monthDaysTotal).keys()]
-  console.log('days', days)
   return (
     <StyledDays isGray={index % 2 == 0}>
       {days.map((day) => (
