@@ -55,9 +55,14 @@ const Month = styled.div`
 type CalendarProps = {
   initYear: number
   endYear: number
+  markedPeriods?: any
 }
 
-export const Calendar: FunctionComponent<CalendarProps> = ({initYear, endYear}) => {
+export const Calendar: FunctionComponent<CalendarProps> = ({
+  initYear, 
+  endYear,
+  markedPeriods
+}) => {
   // const years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
   const years = [];
   for (var i = initYear; i <= endYear; i++) {
@@ -106,7 +111,7 @@ export const Calendar: FunctionComponent<CalendarProps> = ({initYear, endYear}) 
             ))}
           </Months>
           <>
-            {years.map((year) => <YearLine year={year} />)}
+            {years.map((year) => <YearLine markedPeriods={markedPeriods} year={year} />)}
           </>
         </MonthsCol>
       </Row>

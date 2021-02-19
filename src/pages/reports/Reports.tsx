@@ -123,7 +123,7 @@ export const Reports = () => {
   return (
     <StyledReports>
       <Title>
-        {`Reports ${code}`}
+        {`Reports ${id}`}
       </Title>
       <>
         <ChartWrapper>
@@ -131,7 +131,7 @@ export const Reports = () => {
             {`2020: ${increment2020}`}
           </Year>
           <ChartLinear data={data2020} />
-          <Button to={`/${code}/reports/years/2020`}>
+          <Button to={`/${id}/reports/years/2020`}>
             Monthly report
           </Button>
         </ChartWrapper>
@@ -140,7 +140,7 @@ export const Reports = () => {
             {`2019: ${increment2019}`}
           </Year>
           <ChartLinear data={data2019} />
-          <Button to={`/${code}/reports/years/2019`}>
+          <Button to={`/${id}/reports/years/2019`}>
             Monthly report
           </Button>
         </ChartWrapper>
@@ -149,7 +149,7 @@ export const Reports = () => {
             {`2018: ${increment2018}`}
           </Year>
           <ChartLinear data={data2018} />
-          <Button to={`/${code}/reports/years/2018`}>
+          <Button to={`/${id}/reports/years/2018`}>
             Monthly report
           </Button>
         </ChartWrapper>

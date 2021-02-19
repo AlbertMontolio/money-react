@@ -58,8 +58,6 @@ export const TenantContracts = () => {
     setEndYear(Math.max(endYears))
   }, [periods])
 
-  console.log('### initYear', initYear)
-
   const fetchData = async () => {
     const url = `${urls.productionApi}/properties/${propertyId}/tenant_contracts`
 
@@ -88,7 +86,11 @@ export const TenantContracts = () => {
       <div>
         Contracts
       </div>
-      <Calendar initYear={initYear} endYear={endYear} />
+      <Calendar 
+        initYear={initYear} 
+        endYear={endYear}
+        markedPeriods={periods}
+      />
       <div>
         {tenantContracts.map((tenantContract) => <TenantContractCard tenantContract={tenantContract}/>)}
       </div>

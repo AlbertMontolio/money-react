@@ -23,7 +23,7 @@ const TitleWrapper = styled.div`
 `
 
 export const MonthWithData = () => {
-  const {year, month, code} = useParams<UrlParamTypes>()
+  const {year, month, id} = useParams<UrlParamTypes>()
   const {monthTransactions} = useMonthTransactions()
 
   let numYear = year
@@ -32,10 +32,10 @@ export const MonthWithData = () => {
   return (
     <Page>
       <SubTitle>
-        account: {code}
+        account: {id}
       </SubTitle>
       <YearMonthMenu
-        code={code}
+        code={id}
         numYear={numYear}
         month={month}
         year={year}

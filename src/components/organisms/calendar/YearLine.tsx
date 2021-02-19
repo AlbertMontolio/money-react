@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
 import { Days } from './Days'
 
@@ -28,7 +28,15 @@ const Months = styled.div`
 
 `
 
-export const YearLine = ({year}: {year: number}) => {
+type YearLineProps = {
+  year: number
+  markedPeriods?: any
+}
+
+export const YearLine: FunctionComponent<YearLineProps> = ({
+  year,
+  markedPeriods
+}) => {
   const months = [
     { january: 31 },
     { february: 28 },
@@ -44,7 +52,8 @@ export const YearLine = ({year}: {year: number}) => {
     { december: 31 },
   ]
 
-  const monthDaysTotals = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  // const monthDaysTotals = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  const monthDaysTotals = [31, 28, 31, 30]
 
   return (
     <div>
@@ -52,7 +61,12 @@ export const YearLine = ({year}: {year: number}) => {
         <MonthLine>
           {monthDaysTotals.map((monthDaysTotal, index) => (
             <Month>
-              <Days index={index} monthDaysTotal={monthDaysTotal} />
+              <Days 
+                month={index} 
+                monthDaysTotal={monthDaysTotal}
+                year={year}
+                markedPeriods={markedPeriods}
+              />
             </Month>
           ))}
         </MonthLine>

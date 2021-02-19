@@ -29,14 +29,14 @@ const ButtonWrapper = styled.div`
 `
 
 export const YearWithData = () => {
-  const {code, year} = useParams<UrlParamTypes>()
+  const {id, year} = useParams<UrlParamTypes>()
   const {yearData} = useYearData()
   const {monthsData} = useMonthsData()
 
   return (
     <Page>
       <Title>
-        {`Report Year ${year} - ${code}`}
+        {`Report Year ${year} - ${id}`}
       </Title>
       <ChartWrapper>
         <ChartLinear data={yearData} />
@@ -47,7 +47,7 @@ export const YearWithData = () => {
       <Buttons>
         {months.map((month, index) => (
           <ButtonWrapper>
-            <StyledLink to={`/${code}/reports/years/${year}/months/${index + 1}`}>
+            <StyledLink to={`/${id}/reports/years/${year}/months/${index + 1}`}>
               {`${month} - ${year}`}
             </StyledLink>
           </ButtonWrapper>
