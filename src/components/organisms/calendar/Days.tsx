@@ -35,8 +35,6 @@ export const Days: FunctionComponent<DaysProps> = ({
   markedPeriods
 }) => {
   const days = [...Array(monthDaysTotal).keys()]
-  console.log('### days', days)
-  console.log('### markedPeriods', markedPeriods)
 
   const getCurrentDate = (day: any) => new Date(year,month,day)
 

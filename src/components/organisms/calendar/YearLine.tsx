@@ -52,8 +52,7 @@ export const YearLine: FunctionComponent<YearLineProps> = ({
     { december: 31 },
   ]
 
-  // const monthDaysTotals = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  const monthDaysTotals = [31, 28, 31, 30]
+  const monthDaysTotals = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
   return (
     <div>
