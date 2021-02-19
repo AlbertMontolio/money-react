@@ -5,6 +5,7 @@ import { urls } from '../../../config'
 import { useAuthenticate } from '../../../providers/authenticate-provider/AuthenticateProvider'
 import { useAuthorize } from '../../../providers/authorize-provider/AuthorizeProvider'
 import { useUser } from '../../../providers/user-provider/UserProvider'
+import { Button } from '../../../brewery/button/Button'
 
 const Inputs = styled.div`
   display: flex;
@@ -91,9 +92,9 @@ export const SignInForm = () => {
         </Label>
         <StyledInput onChange={(e) => setPassword(e.target.value)} />
       </Inputs>
-      <div onClick={() => handleOnSubmit()}>
-        sign up button
-      </div>
+      <Button onClick={() => handleOnSubmit()}>
+        LOG IN
+      </Button>
     </div>
   )
 }
