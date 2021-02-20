@@ -83,6 +83,9 @@ export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataP
     fetchData()
   }, [])
 
+
+  console.log('### tenantContracts', tenantContracts)
+
   return (
     <Page>
       <Title>
