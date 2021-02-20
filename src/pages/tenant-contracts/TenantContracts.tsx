@@ -84,7 +84,7 @@ export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataP
   }, [])
 
 
-  console.log('### tenantContracts', tenantContracts)
+  console.log('### tenantContractss', tenantContracts)
 
   return (
     <Page>
