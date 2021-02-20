@@ -9,6 +9,7 @@ import { UrlParamTypes } from '../../types/common'
 import { Page } from '../../brewery/page/Page'
 import { TenantContractCard } from './TenantContractCard'
 import { Calendar } from '../../components/organisms/calendar/Calendar'
+import { MonthlyCalendar } from '../../components/organisms/monthly-calendar/MonthlyCalendar'
 
 const StyledContracts = styled.div``
 
@@ -40,15 +41,12 @@ export const TenantContracts = () => {
   useEffect(() => {
     const initYears: number[] = []
     const endYears: number[] = []
-    periods.forEach((period) => {
-      // @ts-ignore
+    periods.forEach((period: {firstDay: Date, lastDay: Date}) => {
       const initYear = period.firstDay.getFullYear()
-      // @ts-ignore
       const endYear = period.lastDay.getFullYear()
       initYears.push(initYear)
       endYears.push(endYear)
     })
-    // @ts-ignore
     console.log('initYears', initYears)
     // @ts-ignore
     console.log('Math.min(initYears)', Math.min(initYears))
@@ -86,10 +84,17 @@ export const TenantContracts = () => {
       <div>
         Contracts
       </div>
-      <Calendar 
+      {false && (
+        <Calendar 
+          initYear={initYear} 
+          endYear={endYear}
+          markedPeriods={periods}
+        />
+      )}
+      <MonthlyCalendar
         initYear={initYear} 
         endYear={endYear}
-        markedPeriods={periods}
+        markedPeriods={periods} 
       />
       <div>
         {tenantContracts.map((tenantContract) => <TenantContractCard tenantContract={tenantContract}/>)}
