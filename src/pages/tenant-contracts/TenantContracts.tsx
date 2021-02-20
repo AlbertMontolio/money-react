@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FunctionComponent } from 'react'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 
 import { useAuthorize } from '../../providers/authorize-provider/AuthorizeProvider'
+import { PropertyProvider, useProperty } from '../../providers/property-provider/PropertyProvider'
 
 import { urls } from '../../config'
 import { UrlParamTypes } from '../../types/common'
@@ -13,48 +14,52 @@ import { MonthlyCalendar } from '../../components/organisms/monthly-calendar/Mon
 
 const StyledContracts = styled.div``
 
-export const TenantContracts = () => {
+type TenantContractsWithDataProps = {
+  propertyId: any
+}
+
+const Title = styled.div`
+  font-weight: bold;
+  font-size: 20px; 
+  margin-bottom: 40px;
+`
+
+export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataProps> = ({propertyId}) => {
   const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
+  const { property } = useProperty()
   const [tenantContracts, setTenantContracts] = useState([])
-  const { propertyId } = useParams<UrlParamTypes>()
-  console.log('### id', propertyId)
 
   const [periods, setPeriods] = useState([])
   const [initYear, setInitYear] = useState(2012)
   const [endYear, setEndYear] = useState(2023)
-  console.log('### periods', periods)
 
   useEffect(() => {
-    tenantContracts.forEach((tenantContract) => {
-      console.log('### tenantContract', tenantContract)
+    const initYears = tenantContracts.map((tenantContract: any) => {
+      return (new Date(tenantContract.first_day).getFullYear())
+    })
+    const endYears = tenantContracts.map((tenantContract: any) => {
+      return (new Date(tenantContract.last_day).getFullYear())
+    })
+    // @ts-ignore
+    setInitYear(Math.min(...initYears))
+    // @ts-ignore
+    setEndYear(Math.max(...endYears))
+  }, [tenantContracts])
+
+  useEffect(() => {
+    const newPeriods = tenantContracts.map((tenantContract) => {
       const newPeriod = {
         // @ts-ignore
         firstDay: new Date(tenantContract.first_day),
         // @ts-ignore
-        lastDay: new Date(tenantContract.last_day)
+        lastDay: new Date(tenantContract.last_day),
       }
-      // @ts-ignore
-      setPeriods([...periods, newPeriod])
-    })
-  }, [tenantContracts])
 
-  useEffect(() => {
-    const initYears: number[] = []
-    const endYears: number[] = []
-    periods.forEach((period: {firstDay: Date, lastDay: Date}) => {
-      const initYear = period.firstDay.getFullYear()
-      const endYear = period.lastDay.getFullYear()
-      initYears.push(initYear)
-      endYears.push(endYear)
-    })
-    console.log('initYears', initYears)
+      return newPeriod
+    }) 
     // @ts-ignore
-    console.log('Math.min(initYears)', Math.min(initYears))
-    // @ts-ignore
-    setInitYear(Math.min(initYears))
-    // @ts-ignore
-    setEndYear(Math.max(endYears))
-  }, [periods])
+    setPeriods(newPeriods)
+  }, [initYear, endYear])
 
   const fetchData = async () => {
     const url = `${urls.productionApi}/properties/${propertyId}/tenant_contracts`
@@ -68,7 +73,6 @@ export const TenantContracts = () => {
         }
       })
       const responseData = await response.json()
-      console.log('### Properties responseData', responseData)
       setTenantContracts(responseData)
     } catch (error) {
       console.log('error', error)
@@ -81,6 +85,9 @@ export const TenantContracts = () => {
 
   return (
     <Page>
+      <Title>
+        {property.address} - ({property.id})
+      </Title>
       <div>
         Contracts
       </div>
@@ -100,5 +107,15 @@ export const TenantContracts = () => {
         {tenantContracts.map((tenantContract) => <TenantContractCard tenantContract={tenantContract}/>)}
       </div>
     </Page>
+  )
+}
+
+export const TenantContracts = () => {
+  const { propertyId } = useParams<UrlParamTypes>()
+
+  return (
+    <PropertyProvider propertyId={propertyId}>
+      <TenantContractsWithData propertyId={propertyId} />
+    </PropertyProvider>
   )
 }

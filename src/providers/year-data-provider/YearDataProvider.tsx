@@ -17,8 +17,6 @@ type YearDataProviderProps = {
 export const YearDataProvider: FunctionComponent<YearDataProviderProps> = ({children, year}) => {
   const [yearData, setYearData] = useState([])
 
-  console.log('### YearDataProvider year', year)
-
   const fetchData = async () => {
     console.log('### year', year)
     const url = `${urls.productionApi}/db_acc_transactions/year_data?year=${year}`
