@@ -9,7 +9,12 @@ import React, {
 import { urls } from '../../config'
 import { useAuthorize } from '../authorize-provider/AuthorizeProvider'
 
-const PropertyContext = createContext<any>([])
+const PropertyContext = createContext<any>({
+  purchasePayments: {
+    collection: [],
+    total: 0
+  }
+})
 
 type PropertyProviderProps = {
   propertyId: any

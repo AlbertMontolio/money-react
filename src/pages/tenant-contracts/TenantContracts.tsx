@@ -11,6 +11,8 @@ import { Page } from '../../brewery/page/Page'
 import { TenantContractCard } from './TenantContractCard'
 import { Calendar } from '../../components/organisms/calendar/Calendar'
 import { MonthlyCalendar } from '../../components/organisms/monthly-calendar/MonthlyCalendar'
+import { Gastos } from './Gastos'
+import { PropertyDetails } from '../../components/organisms/property-details/PropertyDetails'
 
 const StyledContracts = styled.div``
 
@@ -27,6 +29,7 @@ const Title = styled.div`
 export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataProps> = ({propertyId}) => {
   const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
   const { property } = useProperty()
+  console.log('### property', property)
   const [tenantContracts, setTenantContracts] = useState([])
 
   const [periods, setPeriods] = useState([])
@@ -83,14 +86,12 @@ export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataP
     fetchData()
   }, [])
 
-
-  console.log('### tenantContractss', tenantContracts)
-
   return (
     <Page>
       <Title>
         {property.address} - ({property.id})
       </Title>
+      <PropertyDetails propertyId={propertyId} />
       <div>
         Contracts
       </div>
@@ -109,6 +110,7 @@ export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataP
       <div>
         {tenantContracts.map((tenantContract) => <TenantContractCard tenantContract={tenantContract}/>)}
       </div>
+      <Gastos gastos={property.gastos} />
     </Page>
   )
 }
