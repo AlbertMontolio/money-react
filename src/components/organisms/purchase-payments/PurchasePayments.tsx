@@ -34,7 +34,7 @@ const Total = styled.div`
   margin-bottom: 30px;
 `
 
-export const PropertyDetailsWithData = () => {
+export const PurchasePaymentsWithData = () => {
   const { property } = useProperty()
   console.log('### property', property)
   return (
@@ -64,11 +64,10 @@ export const PropertyDetailsWithData = () => {
   )
 }
 
-export const PropertyDetails = ({propertyId}: {propertyId: string}) => {
-
+export const PurchasePayments = ({propertyId}: {propertyId: string}) => {
   return (
     <PropertyProvider propertyId={propertyId}>
-      <PropertyDetailsWithData />
+      <PurchasePaymentsWithData />
     </PropertyProvider>
   )
 }

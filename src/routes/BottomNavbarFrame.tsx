@@ -11,6 +11,7 @@ import { Transactions } from '../pages/transactions/Transactions'
 import { Reports } from '../pages/reports/Reports'
 import { Year } from '../pages/reports/year/Year'
 import { Month } from '../pages/reports/month/Month'
+import { Property } from '../pages/property/Property'
 import { BottomNavbar } from '../components/molecules/bottom-navbar/BottomNavbar'
 
 
@@ -21,6 +22,7 @@ export const BottomNavbarFrame = () => {
       <Route path='/real-state/accounts/:id' exact component={Account} />
       <Route path='/real-state/users/:user/accounts' exact component={Accounts} />
       <Route path='/real-state/users/:user/properties' exact component={Properties} />
+      <Route path='/real-state/properties/:propertyId' exact component={Property} />
       <Route path='/real-state/properties/:propertyId/tenant-contracts' exact component={TenantContracts} />
       <Route path='/uploaders' exact component={Uploaders} />
       <Route path='/real-state/accounts/:id/files' exact component={Uploader} />

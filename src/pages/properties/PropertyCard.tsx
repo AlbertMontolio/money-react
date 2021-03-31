@@ -27,7 +27,7 @@ export const PropertyCard: FunctionComponent<PropertyCardProps> = ({property}) =
   const endContractDate = (new Date(property.endContractDate)).toLocaleDateString("en-GB")
   return (
     <StyledProperty>
-      <Address to={`/real-state/properties/${property.id}/tenant-contracts`}>
+      <Address to={`/real-state/properties/${property.id}`}>
         {property.address}
       </Address>
       <Info>
