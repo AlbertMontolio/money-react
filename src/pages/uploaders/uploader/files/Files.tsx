@@ -61,7 +61,7 @@ export const Files: FunctionComponent<FilesProps> = ({accountId}) => {
         Files
       </Title>
       <>
-        {files.map((file: any) => (
+        {false && files.map((file: any) => (
           <File>
             <Name>
               {file.name}

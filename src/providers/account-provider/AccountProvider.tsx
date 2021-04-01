@@ -9,29 +9,36 @@ import React, {
 import { urls } from '../../config'
 import { useAuthorize } from '../authorize-provider/AuthorizeProvider'
 
-const UserAccountsContext = createContext<any>([])
+const AccountContext = createContext<any>({
+  account: {
+    id: 0
+  }
+})
 
-export const UserAccountsProvider: FunctionComponent = ({
-  children
+type AccountProviderProps = {
+  accountId: any
+}
+
+export const AccountProvider: FunctionComponent<AccountProviderProps> = ({
+  children, 
+  accountId
 }) => {
-  const [userAccounts, setUserAccounts] = useState([])
+  const [account, setAccount] = useState([])
   const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
-  console.log('backendUserId', backendUserId)
 
   const fetchData = async () => {
-    const url = `${urls.productionApi}/user_accounts`
+    const url = `${urls.productionApi}/accounts/${accountId}`
 
     try {
       const response = await fetch(url, {
         method: 'get',
-        headers: { 
+        headers: {
           'Content-type': 'application/json',
           'Authorization': authorizeToken
         }
       })
       const responseData = await response.json()
-      console.log('### UserAccountsProvider responseData', responseData)
-      setUserAccounts(responseData)
+      setAccount(responseData)
     } catch (error) {
       console.log('error', error)
     }
@@ -42,14 +49,13 @@ export const UserAccountsProvider: FunctionComponent = ({
   }, [])
 
   return (
-    <UserAccountsContext.Provider value={userAccounts}>
+    <AccountContext.Provider value={account}>
       {children}
-    </UserAccountsContext.Provider>
+    </AccountContext.Provider>
   )
 }
 
-export const useUserAccount = () => {
-  const userAccounts = useContext(UserAccountsContext)
-
-  return { userAccounts }
+export const useAccount = () => {
+  const account = useContext(AccountContext)
+  return { account }
 }

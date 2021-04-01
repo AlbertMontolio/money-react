@@ -38,7 +38,7 @@ export const Account = () => {
           Reports
         </StyledLink>
         <StyledLink to={`/real-state/accounts/${id}/files`}>
-          Upload file
+          Files
         </StyledLink>
       </Links>
     </Page>
