@@ -12,7 +12,6 @@ const Item = styled.div`
   background-color: white;
   flex-shrink: 0;
   width: 100px;
-  overflow: scroll;
   padding: 5px 10px;
   height: 30px;
   margin: 0px 2px;

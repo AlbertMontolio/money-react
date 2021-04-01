@@ -53,7 +53,7 @@ export const File = () => {
   return (
     <Page>
       <div>
-        {file.info.name}
+        {file?.info?.name}
       </div>
       <StyledTransactions>
         {file.accountTransactions.map((transaction) => <AccountTransaction transaction={transaction} />)}

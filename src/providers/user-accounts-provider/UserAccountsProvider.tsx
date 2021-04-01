@@ -19,7 +19,7 @@ export const UserAccountsProvider: FunctionComponent = ({
   console.log('backendUserId', backendUserId)
 
   const fetchData = async () => {
-    const url = `${urls.productionApi}/user_accounts`
+    const url = `${urls.productionApi}/accounts_users`
 
     try {
       const response = await fetch(url, {

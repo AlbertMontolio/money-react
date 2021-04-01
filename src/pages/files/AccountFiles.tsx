@@ -8,9 +8,15 @@ import { NavLink } from 'react-router-dom'
 import { Title } from '../../brewery/title/Title'
 import { urls } from '../../config'
 import { useAuthorize } from '../../providers/authorize-provider/AuthorizeProvider'
+import { MonthlyCalendar } from '../../components/organisms/monthly-calendar/MonthlyCalendar'
+import { FilesCalendar } from '../../components/organisms/files-calendar/FilesCalendar'
 
 const StyledFiles = styled.div`
   margin-top: 30px;
+`
+
+const StyledItems = styled.div`
+  margin-top: 20px;
 `
 
 const File = styled(NavLink)`
@@ -65,7 +71,8 @@ export const AccountFiles = ({accountId}: {accountId: any}) => {
       <Title>
         Files
       </Title>
-      <>
+      <FilesCalendar accountId={accountId} />
+      <StyledItems>
         {accountFiles.map((file: any) => (
           <File to={`/real-state/files/${file.id}`}>
             <Dates>
@@ -76,7 +83,7 @@ export const AccountFiles = ({accountId}: {accountId: any}) => {
             </Name>
           </File>
         ))}
-      </>
+      </StyledItems>
     </StyledFiles>
   )
 }
