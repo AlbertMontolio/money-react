@@ -12,7 +12,6 @@ import { TenantContractCard } from './TenantContractCard'
 import { Calendar } from '../../components/organisms/calendar/Calendar'
 import { MonthlyCalendar } from '../../components/organisms/monthly-calendar/MonthlyCalendar'
 import { Gastos } from './Gastos'
-import { PurchasePayments } from '../../components/organisms/purchase-payments/PurchasePayments'
 
 const StyledContracts = styled.div``
 
@@ -91,7 +90,6 @@ export const TenantContractsWithData: FunctionComponent<TenantContractsWithDataP
       <Title>
         {property.address} - ({property.id})
       </Title>
-      <PurchasePayments propertyId={propertyId} />
       <div>
         Contracts
       </div>

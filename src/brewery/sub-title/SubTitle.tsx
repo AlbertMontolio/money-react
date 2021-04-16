@@ -1,15 +1,22 @@
 import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
 
-const StyledSubTitle = styled.div`
+type SubTitleType = {
+	marginBottom?: number
+}
+
+const StyledSubTitle = styled.div<SubTitleType>`
 	font-size: 16px;
 	font-weight: bold;
-	margin-bottom: 20px;
+	margin-bottom: ${({marginBottom}) => `${marginBottom}px`};
 `
 
-export const SubTitle: FunctionComponent = ({ children }) => {
+export const SubTitle: FunctionComponent<SubTitleType> = ({ 
+	children,
+	marginBottom = 20
+}) => {
 	return (
-		<StyledSubTitle>
+		<StyledSubTitle marginBottom={marginBottom}>
 			{children}
 		</StyledSubTitle>
 	)

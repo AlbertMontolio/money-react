@@ -9,12 +9,24 @@ import React, {
 import { urls } from '../../config'
 import { useAuthorize } from '../authorize-provider/AuthorizeProvider'
 
-const PropertyContext = createContext<any>({
+const initState = {
   purchasePayments: {
     collection: [],
     total: 0
+  },
+  fixCosts: {
+    collection: [],
+    total: 0
+  },
+  rent: 0,
+  cashFlow: 0,
+  expenses: {
+    collection: [],
+    total: 0
   }
-})
+}
+
+const PropertyContext = createContext<any>(initState)
 
 type PropertyProviderProps = {
   propertyId: any
@@ -24,7 +36,7 @@ export const PropertyProvider: FunctionComponent<PropertyProviderProps> = ({
   children, 
   propertyId
 }) => {
-  const [property, setProperty] = useState([])
+  const [property, setProperty] = useState(initState)
   const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
 
   const fetchData = async () => {

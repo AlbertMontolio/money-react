@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom'
 import { PropertyProvider, useProperty } from '../../providers/property-provider/PropertyProvider'
 import { UrlParamTypes } from '../../types/common'
 import { Page } from '../../brewery/page/Page'
-import { PurchasePayments } from '../../components/organisms/purchase-payments/PurchasePayments'
-import { AggCashFlow } from '../../components/organisms/agg-cash-flow/AggCashFlow'
+import { PurchasePayments } from './purchase-payments/PurchasePayments'
+import { AggCashFlow } from './agg-cash-flow/AggCashFlow'
+import { FixCosts } from './fix-costs/FixCosts'
+import { CashFlow } from './cash-flow/CashFlow'
+import { Expenses } from './expenses/Expenses'
 
 type PropertyWithDataProps = {
   propertyId: any
@@ -26,7 +29,10 @@ export const PropertyWithData: FunctionComponent<PropertyWithDataProps> = () => 
       <Title>
         {property.address} - ({property.id})
       </Title>
-      {property.id && <PurchasePayments propertyId={property.id} />}
+      <PurchasePayments />
+      <FixCosts />
+      <Expenses />
+      <CashFlow />
       <AggCashFlow />
     </Page>
   )
