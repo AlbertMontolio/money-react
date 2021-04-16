@@ -9,7 +9,7 @@ import { Collection } from '../Collection'
 import { Item } from '../Item'
 
 const Group = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `
 
 export const AggCashFlow = () => {
