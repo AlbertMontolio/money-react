@@ -20,7 +20,7 @@ export const CashFlow = () => {
         total: totalFixCosts 
       },
       rent,
-      cashFlow
+      cashFlowWithFixCosts
     } 
   } = useProperty()
 
@@ -38,7 +38,7 @@ export const CashFlow = () => {
         </Item>
       </Collection>
       <SubTitle marginBottom={0}>
-        cash flow: {cashFlow} € / month
+        cash flow: {cashFlowWithFixCosts} € / month
       </SubTitle>
     </Card>
   )

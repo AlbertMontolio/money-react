@@ -23,9 +23,6 @@ export const DiscreteSlider: FunctionComponent<DiscreteSliderProps> = ({year, se
 
   return (
     <div className={classes.root}>
-      <Typography id="discrete-slider" gutterBottom>
-        in years
-      </Typography>
       <Slider
         onChange={(e, val) => setYear(+val)}
         defaultValue={year}

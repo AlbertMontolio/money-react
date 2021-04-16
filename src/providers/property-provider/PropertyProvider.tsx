@@ -19,7 +19,7 @@ const initState = {
     total: 0
   },
   rent: 0,
-  cashFlow: 0,
+  cashFlowWithFixCosts: 0,
   expenses: {
     collection: [],
     total: 0

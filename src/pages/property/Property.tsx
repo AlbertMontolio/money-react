@@ -31,8 +31,8 @@ export const PropertyWithData: FunctionComponent<PropertyWithDataProps> = () => 
       </Title>
       <PurchasePayments />
       <FixCosts />
-      <Expenses />
       <CashFlow />
+      <Expenses />
       <AggCashFlow />
     </Page>
   )
