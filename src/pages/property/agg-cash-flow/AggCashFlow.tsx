@@ -8,13 +8,7 @@ import { useProperty } from '../../../providers/property-provider/PropertyProvid
 import { Collection } from '../Collection'
 import { Item } from '../Item'
 
-const StyledInfos = styled.div`
-  margin-top: 20px;
-`
-
-const Info = styled.div`
-  display: flex;
-  align-items: center;
+const Group = styled.div`
   margin-bottom: 10px;
 `
 
@@ -26,7 +20,8 @@ export const AggCashFlow = () => {
       rent,
       cashFlowWithFixCosts,
       expenses: {
-        total: totalExpenses
+        total: totalExpenses,
+        totalDone: totalDoneExpenses
       }
     } 
   } = useProperty()
@@ -37,9 +32,11 @@ export const AggCashFlow = () => {
     minimumFractionDigits: 2
   })
 
-  const aggCashFlow = year * 12 * cashFlowWithFixCosts
-  const monthlyExpenses = totalExpenses / (year * 12)
+  const aggCashFlowWithFixCosts = year * 12 * cashFlowWithFixCosts
+  const monthlyExpenses = totalDoneExpenses / (year * 12)
   const aggRent = year * 12 * rent
+  const monthlyBenefit = cashFlowWithFixCosts - monthlyExpenses
+  const aggMonthlyBenefit = monthlyBenefit * 12 * year 
 
   return (
     <Card>
@@ -48,24 +45,49 @@ export const AggCashFlow = () => {
       </Title>
       <DiscreteSlider year={year} setYear={setYear} />
       <Collection>
-        <Item>
-          rent / month: {rent}€
-        </Item>
-        <Item>
-          agg rent: {aggRent}€
-        </Item>
-        <Item>
-          cash-flow / month: {cashFlowWithFixCosts}€
-        </Item>
-        <Item>
-          expenses / month: {monthlyExpenses}€
-        </Item>
-        <Item>
-          agg. cash flow in {year} years: {formatter.format(aggCashFlow)}
-        </Item>
-        <Item>
-          agg. profit in {year} years: {((aggCashFlow / 130954.5) * 100).toFixed(2)}%
-        </Item>
+        <Group>
+          <Item>
+            rent: {rent} € / month
+          </Item>
+          <Item>
+            agg rent: {aggRent} €
+          </Item>
+        </Group>
+        <Group>
+          <Item>
+            cash-flow with costs: {cashFlowWithFixCosts} € / month
+          </Item>
+          <Item>
+            agg. cash flow with fix costs: {formatter.format(aggCashFlowWithFixCosts)}
+          </Item>
+        </Group>
+        <Group>
+          <Item>
+            total expenses: {totalExpenses} €
+          </Item>
+          <Item>
+            expenses: {monthlyExpenses} € / month
+          </Item>
+          <Item>
+            % of cash flow: {(monthlyExpenses / cashFlowWithFixCosts) * 100}
+          </Item>
+        </Group>
+        <Group>
+          <Item>
+            benefit: { monthlyBenefit } € / month
+          </Item>
+          <Item>
+            benefit agg: { monthlyBenefit * 12 * year }
+          </Item>
+        </Group>
+        <Group>
+          <Item>
+            agg. profit with fix costs: {((aggCashFlowWithFixCosts / 130954.5) * 100).toFixed(2)}%
+          </Item>
+          <Item>
+            agg. profit with all costs: {((aggMonthlyBenefit / 130954.5) * 100).toFixed(2)}%
+          </Item>
+        </Group>
       </Collection>
     </Card>
   )
