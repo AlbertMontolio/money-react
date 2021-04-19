@@ -29,7 +29,6 @@ export const ChartBar: FunctionComponent<BarChartProps> = ({
         {currentChart === 'aggSolls' && <Bar dataKey="aggSolls" fill='#ff4747' />}
         {currentChart === 'aggHabens' && <Bar dataKey="aggHabens" fill='#45c149' />}
         {currentChart === 'aggBalances' && <Bar dataKey="aggBalances" fill='#75acff' />}
-        
       </BarChart>
     </div>
   )

@@ -32,12 +32,21 @@ type PropertyProviderProps = {
   propertyId: any
 }
 
+export const getAggCashFlowWithFixCosts = ({
+  year, 
+  cashFlowWithFixCosts
+}: {
+  year: number,
+  cashFlowWithFixCosts: number
+}) => year * 12 * cashFlowWithFixCosts
+
 export const PropertyProvider: FunctionComponent<PropertyProviderProps> = ({
   children, 
   propertyId
 }) => {
   const [property, setProperty] = useState(initState)
   const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
+
 
   const fetchData = async () => {
     const url = `${urls.productionApi}/properties/${propertyId}`

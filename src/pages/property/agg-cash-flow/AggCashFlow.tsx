@@ -7,6 +7,8 @@ import { DiscreteSlider } from '../../../brewery/discrete-slider/DiscreteSlider'
 import { useProperty } from '../../../providers/property-provider/PropertyProvider'
 import { Collection } from '../Collection'
 import { Item } from '../Item'
+import { getAggCashFlowWithFixCosts } from '../../../providers/property-provider/PropertyProvider'
+import { Chart } from '../chart/Chart'
 
 const Group = styled.div`
   margin-bottom: 20px;
@@ -15,16 +17,15 @@ const Group = styled.div`
 export const AggCashFlow = () => {
   const [year, setYear] = useState(10)
 
+  const { property } = useProperty()
   const { 
-    property: {
-      rent,
-      cashFlowWithFixCosts,
-      expenses: {
-        total: totalExpenses,
-        totalDone: totalDoneExpenses
-      }
-    } 
-  } = useProperty()
+    rent,
+    cashFlowWithFixCosts,
+    expenses: {
+      total: totalExpenses,
+      totalDone: totalDoneExpenses
+    }
+  } = property
 
   const formatter = new Intl.NumberFormat('en-GB', {
     style: 'currency',
@@ -32,7 +33,7 @@ export const AggCashFlow = () => {
     minimumFractionDigits: 2
   })
 
-  const aggCashFlowWithFixCosts = year * 12 * cashFlowWithFixCosts
+  const aggCashFlowWithFixCosts = getAggCashFlowWithFixCosts({year, cashFlowWithFixCosts})
   const monthlyExpenses = totalDoneExpenses / (year * 12)
   const aggRent = year * 12 * rent
   const monthlyBenefit = cashFlowWithFixCosts - monthlyExpenses
@@ -89,6 +90,7 @@ export const AggCashFlow = () => {
           </Item>
         </Group>
       </Collection>
+      <Chart property={property} year={year} />
     </Card>
   )
 }

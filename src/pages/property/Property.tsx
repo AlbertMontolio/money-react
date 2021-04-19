@@ -10,6 +10,7 @@ import { AggCashFlow } from './agg-cash-flow/AggCashFlow'
 import { FixCosts } from './fix-costs/FixCosts'
 import { CashFlow } from './cash-flow/CashFlow'
 import { Expenses } from './expenses/Expenses'
+import { Chart } from './chart/Chart'
 
 type PropertyWithDataProps = {
   propertyId: any
