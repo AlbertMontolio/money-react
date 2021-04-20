@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
-import { getAggCashFlowWithFixCosts } from '../../../providers/property-provider/PropertyProvider'
+import { 
+  getAggCashFlowWithFixCosts,
+  getAggExpenses
+} from '../../../providers/property-provider/PropertyProvider'
 
 import {
   BarChart, 
@@ -28,14 +31,44 @@ const years = (year: any) => {
   return years
 }
 
-const getData = (years: any, cashFlowWithFixCosts: any) => {
+const getExpensesData = (
+  expensesData: any, 
+  year: any,
+  maxYear: any,
+  maxExpense: any
+) => {
+  console.log('year', year) 
+  console.log('maxYear', maxYear) 
+  console.log('expensesData', expensesData)
+
+  let expenses = 0
+  if (year <= maxYear) {
+    expenses = expensesData[year - 1].expenses
+  } else {
+    expenses = maxExpense
+  }
+
+  return expenses
+}
+
+const getData = (
+  years: any, 
+  cashFlowWithFixCosts: any,
+  expensesData: any
+) => {
   const data = [] as any
+  const maxYear = expensesData.length
+  const maxExpense = expensesData[expensesData.length - 1].expenses
+  console.log('### getData expensesData', expensesData[0])
+  console.log('### years', years)
 
   years.forEach((year: any) => {
     const obj = {
       'year': year,
       'aggCashFlow': getAggCashFlowWithFixCosts({year: year, cashFlowWithFixCosts: cashFlowWithFixCosts}),
+      'expenses': getExpensesData(expensesData, year, maxYear, maxExpense)
     }
+    console.log('obj', obj)
 
     data.push(obj)
   })
@@ -47,10 +80,23 @@ export const Chart: FunctionComponent<ChartTypes> = ({
   property, 
   year
 }) => {
-  const { cashFlowWithFixCosts } = property
-  console.log('### Chart property', property)
-  console.log('years', years(year))
-  const data = getData(years(year), cashFlowWithFixCosts)
+  const { 
+    cashFlowWithFixCosts, 
+    expenses: {
+      expensesData,
+      aggExpensesData
+    }
+  } = property
+
+  if (expensesData.length === 0 || !expensesData) {
+    return null
+  }
+
+  const data = getData(
+    years(year), 
+    cashFlowWithFixCosts,
+    aggExpensesData
+  )
 
   return (
     <div>
@@ -61,7 +107,7 @@ export const Chart: FunctionComponent<ChartTypes> = ({
         <Tooltip />
         <Legend />
         <Bar dataKey="aggCashFlow" fill="#8884d8" />
-        <Bar dataKey="aggExpenses" fill="#82ca9d" />
+        <Bar dataKey="expenses" fill="#82ca9d" />
       </BarChart>
     </div>
   )

@@ -22,7 +22,8 @@ const initState = {
   cashFlowWithFixCosts: 0,
   expenses: {
     collection: [],
-    total: 0
+    total: 0,
+    expensesData: []
   }
 }
 
@@ -39,6 +40,14 @@ export const getAggCashFlowWithFixCosts = ({
   year: number,
   cashFlowWithFixCosts: number
 }) => year * 12 * cashFlowWithFixCosts
+
+export const getAggExpenses = ({
+  year,
+  monthlyExpenses
+}: {
+  year: number,
+  monthlyExpenses: number
+}) => year * 12 * monthlyExpenses
 
 export const PropertyProvider: FunctionComponent<PropertyProviderProps> = ({
   children, 

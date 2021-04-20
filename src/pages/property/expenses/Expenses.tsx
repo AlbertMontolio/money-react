@@ -21,6 +21,10 @@ const Status = styled.div`
   }
 `
 
+const Date = styled.div`
+  width: 110px;
+`
+
 const SubTotal = styled.div`
   font-size: 14px;
   margin-top: 2px;
@@ -53,6 +57,9 @@ export const Expenses = () => {
             <Description>
               {expense.description}
             </Description>
+            <Date>
+              {expense.date}
+            </Date>
             <Status>
               {expense.status}
             </Status>

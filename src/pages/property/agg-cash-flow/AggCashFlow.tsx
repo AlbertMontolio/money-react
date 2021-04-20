@@ -7,7 +7,10 @@ import { DiscreteSlider } from '../../../brewery/discrete-slider/DiscreteSlider'
 import { useProperty } from '../../../providers/property-provider/PropertyProvider'
 import { Collection } from '../Collection'
 import { Item } from '../Item'
-import { getAggCashFlowWithFixCosts } from '../../../providers/property-provider/PropertyProvider'
+import { 
+  getAggCashFlowWithFixCosts, 
+  getAggExpenses 
+} from '../../../providers/property-provider/PropertyProvider'
 import { Chart } from '../chart/Chart'
 
 const Group = styled.div`
