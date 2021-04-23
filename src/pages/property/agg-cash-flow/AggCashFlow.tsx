@@ -48,6 +48,7 @@ export const AggCashFlow = () => {
         Agg. cash flow for {year} years
       </Title>
       <DiscreteSlider year={year} setYear={setYear} />
+      <Chart property={property} year={year} />
       <Collection>
         <Group>
           <Item>
@@ -70,18 +71,18 @@ export const AggCashFlow = () => {
             total expenses: {totalExpenses} €
           </Item>
           <Item>
-            expenses: {monthlyExpenses} € / month
+            expenses: {monthlyExpenses.toFixed(2)} € / month
           </Item>
           <Item>
-            % of cash flow: {(monthlyExpenses / cashFlowWithFixCosts) * 100}
+            % of cash flow: {((monthlyExpenses / cashFlowWithFixCosts) * 100).toFixed(2)}
           </Item>
         </Group>
         <Group>
           <Item>
-            benefit: { monthlyBenefit } € / month
+            benefit: { monthlyBenefit.toFixed(2) } € / month
           </Item>
           <Item>
-            benefit agg: { monthlyBenefit * 12 * year }
+            benefit agg: { (monthlyBenefit * 12 * year).toFixed(2) } €
           </Item>
         </Group>
         <Group>
@@ -93,7 +94,6 @@ export const AggCashFlow = () => {
           </Item>
         </Group>
       </Collection>
-      <Chart property={property} year={year} />
     </Card>
   )
 }

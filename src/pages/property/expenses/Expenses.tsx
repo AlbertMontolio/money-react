@@ -7,6 +7,8 @@ import { useProperty } from '../../../providers/property-provider/PropertyProvid
 import { Collection } from '../Collection'
 import { Item } from '../Item'
 import { Amount } from '../Amount'
+import { urls } from '../../../config'
+import { useAuthorize } from '../../../providers/authorize-provider/AuthorizeProvider'
 
 const Description = styled.div`
   width: 140px;
@@ -15,10 +17,14 @@ const Description = styled.div`
   }
 `
 
-const Status = styled.div`
+const StyledItem = styled.div`
   &:hover {
     cursor: pointer;
   }
+  margin-bottom: 10px;
+`
+
+const Status = styled.div`
 `
 
 const Date = styled.div`
@@ -33,7 +39,7 @@ const SubTotal = styled.div`
 
 export const Expenses = () => {
   const { 
-    property: { 
+    property: {
       expenses: {
         collection,
         total,
@@ -42,6 +48,27 @@ export const Expenses = () => {
       }
     } 
   } = useProperty()
+  const { authorize: { backendUserId, authorizeToken } } = useAuthorize()
+
+  const handleOnClick = async (expenseId: any) => {
+    console.log('handle on clickkk')
+    const url = `${urls.productionApi}/expenses/${expenseId}/toggle`
+
+    try {
+      const response = await fetch(url, {
+        method: 'get',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': authorizeToken
+        }
+      })
+      const responseData = await response.json()
+      console.log('### responseData', responseData)
+      window.location.reload()
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
 
   return (
     <Card>
@@ -50,20 +77,22 @@ export const Expenses = () => {
       </Title>
       <Collection>
         {collection.map((expense: any) => (
-          <Item>
-            <Amount>
-              {expense.amount} €
-            </Amount>
-            <Description>
-              {expense.description}
-            </Description>
-            <Date>
-              {expense.date}
-            </Date>
-            <Status>
-              {expense.status}
-            </Status>
-          </Item>
+          <StyledItem onClick={() => handleOnClick(expense.id)}>
+            <Item>
+              <Amount>
+                {expense.amount} €
+              </Amount>
+              <Description>
+                {expense.description}
+              </Description>
+              <Date>
+                {expense.date}
+              </Date>
+              <Status>
+                {expense.done ? 'done' : 'pendingg'}
+              </Status>
+            </Item>
+          </StyledItem>
         ))}
       </Collection>
       <SubTitle marginBottom={0}>

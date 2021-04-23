@@ -32,7 +32,6 @@ export const BottomNavbarFrame = () => {
       <Route path='/:code/reports/years' exact component={Reports} />
       <Route path='/:code/reports/years/:year' exact component={Year} />
       <Route path='/:code/reports/years/:year/months/:month' exact component={Month} />
-      <BottomNavbar />
     </div>
   )
 }

@@ -12,7 +12,8 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend
+  Legend,
+  ResponsiveContainer
 } from 'recharts'
 
 type ChartTypes = {
@@ -31,16 +32,12 @@ const years = (year: any) => {
   return years
 }
 
-const getExpensesData = (
+const getAggExpensesData = (
   expensesData: any, 
   year: any,
   maxYear: any,
   maxExpense: any
 ) => {
-  console.log('year', year) 
-  console.log('maxYear', maxYear) 
-  console.log('expensesData', expensesData)
-
   let expenses = 0
   if (year <= maxYear) {
     expenses = expensesData[year - 1].expenses
@@ -54,21 +51,25 @@ const getExpensesData = (
 const getData = (
   years: any, 
   cashFlowWithFixCosts: any,
-  expensesData: any
+  aggExpensesData: any
 ) => {
   const data = [] as any
-  const maxYear = expensesData.length
-  const maxExpense = expensesData[expensesData.length - 1].expenses
-  console.log('### getData expensesData', expensesData[0])
-  console.log('### years', years)
+  const maxYear = aggExpensesData.length
+  let maxExpense = 0
+
+  if (aggExpensesData.length > 0) {
+    maxExpense = aggExpensesData[aggExpensesData.length - 1].expenses
+  }
 
   years.forEach((year: any) => {
+    const aggCashFlowWithFixCosts = getAggCashFlowWithFixCosts({year: year, cashFlowWithFixCosts: cashFlowWithFixCosts})
+    const aggExpenses = getAggExpensesData(aggExpensesData, year, maxYear, maxExpense)
     const obj = {
       'year': year,
-      'aggCashFlow': getAggCashFlowWithFixCosts({year: year, cashFlowWithFixCosts: cashFlowWithFixCosts}),
-      'expenses': getExpensesData(expensesData, year, maxYear, maxExpense)
+      'aggCashFlow': aggCashFlowWithFixCosts,
+      'aggExpenses': aggExpenses,
+      'aggBenefit': aggCashFlowWithFixCosts - aggExpenses
     }
-    console.log('obj', obj)
 
     data.push(obj)
   })
@@ -88,7 +89,7 @@ export const Chart: FunctionComponent<ChartTypes> = ({
     }
   } = property
 
-  if (expensesData.length === 0 || !expensesData) {
+  if (!aggExpensesData) {
     return null
   }
 
@@ -99,16 +100,19 @@ export const Chart: FunctionComponent<ChartTypes> = ({
   )
 
   return (
-    <div>
-      <BarChart width={730} height={250} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="aggCashFlow" fill="#8884d8" />
-        <Bar dataKey="expenses" fill="#82ca9d" />
-      </BarChart>
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <BarChart width={730} height={250} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="aggCashFlow" fill="#a8e3ff" />
+          <Bar dataKey="aggExpenses" fill="#ff7e7e" />
+          <Bar dataKey="aggBenefit" fill="#24b124" />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   )
 }
